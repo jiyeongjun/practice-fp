@@ -1,0 +1,14 @@
+@import 'Loading.css';
+
+html,
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    margin: 0 auto;
+    width: 70%;
+    height: fit-content;
+}

@@ -2,9 +2,10 @@
   "name": "practice-fx",
   "version": "1.0.0",
   "description": "",
-  "main": "src/App.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "parcel index.html"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,13 @@
   },
   "homepage": "https://github.com/JiYJ725/practice-fp#readme",
   "dependencies": {
+    "fxdom": "^0.8.3",
+    "fxjs": "^0.21.3",
     "parcel": "^2.8.0"
   },
   "devDependencies": {
     "fxdom": "^0.8.3",
-    "fxjs": "^0.21.3"
+    "fxjs": "^0.21.3",
+    "prettier": "2.8.1"
   }
 }
