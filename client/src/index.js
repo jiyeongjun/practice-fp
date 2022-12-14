@@ -1,18 +1,10 @@
-import { go } from "fxjs";
-import Loading from "./components/Atom/Loading";
-import Todo from "./components/Todo";
-import { $el } from 'fxdom';
+import { go, strMap, tap, map } from "fxjs";
+import Loading from "./components/UIhelper/Loading";
+import Todo from "./components/Todo/Todo";
+import TodoApi from "./api/todo";
+import dummyList from "./dummy";
 
-const delay1000 = async (a) => {
-  const ww = await new Promise((resolve) => setTimeout(() => resolve(a), 1000));
-  return ww;
-}
+const delay1000 = (a) =>
+  new Promise((resolve) => setTimeout(() => resolve(a), 2000));
 
-Loading(go(
-  delay1000(`<div></div>`),
-  $el,
-  Todo.append("body")
-));
-
-const fetchTodos = () =>
-  axios.get('/v1/todos').then(({ data }) => data);
+Loading(go(TodoApi.readTodos(), Todo.append("body"), Todo.addEvents));
