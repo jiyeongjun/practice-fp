@@ -1,33 +1,58 @@
-import dummyList from "../../dummy";
 import { strMap, html, go, pipe, curry, tap } from "fxjs";
 import { $el, $qs, $appendTo } from "fxdom";
 import util from "./util";
+import TodoApi from "../../api/todo";
+import Loading from "../../UiHelper/Loading";
+import { $delegate } from "fxdom/es";
 
 const Todo = {};
 
-Todo.append = curry((parent, todos) =>
-  go(todos, Todo.basic, $el, $appendTo($qs(parent)))
-);
+/** @type {(parent : HTMLElement) => void} */
+Todo.append = (parent) =>
+  Loading(
+    go(
+      TodoApi.readTodos(), // 데이터를 가져와서
+      Todo.baseTmpl, // base template을 생성하고
+      $el, // htmlElement로 변환하고
+      $appendTo($qs(parent)), // 원하는 element에 append하고
+      Todo.addEvent // event를 binding한다.
+    )
+  );
 
-// view
-Todo.basic = (todoList) => html`
-  <main>
-    <h1>To-Do List</h1>
+// template
+Todo.baseTmpl = (todoList) => html`
+    <section class="todo">
+        <h1>To-Do List</h1>
 
-    <form class="todo-form">
-      <label for="new-todo">New Task:</label>
-      <input type="text" id="new-todo" placeholder="할 일 입력하기" />
-      <button type="submit" class="button-add">Add</button>
-    </form>
-    <ul class="todo-list">
-      ${strMap(Todo.item, todoList)}
-    </ul>
-  </main>
+        <form class="todo-form">
+            <label for="new-todo">New Task:</label>
+            <input type="text" id="new-todo" placeholder="할 일 입력하기"/>
+            <button type="button" class="button-add">Add</button>
+        </form>
+        <ul class="todo-list">
+            ${strMap(Todo.itemTmpl, todoList)}
+        </ul>
+    </section>
 `;
 
-Todo.item = (todo) => html` <li>${todo.title}</li> `;
+Todo.itemTmpl = (todo) => html`
+    <li class="todo-item" data-todo-id=${todo.todo_id}>
+        <input type="checkbox"
+               id="todo${todo.todo_id}"
+               ${todo.is_completed ? "checked" : ""}
+        />
+        <label for="todo${todo.todo_id}">${todo.title}</label>
+        <input class="edit-todo hidden" type="text" value="${todo.title}"/>
+        <button class="button-edit">수정</button>
+        <button class="button-save hidden">저장</button>
+        <button class="button-delete">삭제</button>
+    </li>
+`;
 
-// add event
-Todo.addEvents = pipe(util.addTodoHandler);
+// event binding
+Todo.addEvent = tap(
+  $delegate("click", ".button-add", util.addFn),
+  $delegate("click", ".button-delete", util.deleteFn)
+);
 
 export default Todo;

@@ -20,7 +20,7 @@ const loading = Object.freeze({
 
 const Loading = async (f) => {
   loading.pending();
-  await go(f);
+  await tap(f);
   loading.resolve();
 };
 

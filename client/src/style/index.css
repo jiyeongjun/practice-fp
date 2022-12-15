@@ -1,4 +1,7 @@
-@import 'Loading.css';
+@import 'loading.css';
+@import '../components/Todo/Todo.css';
+@import 'modal.css';
+
 
 html,
 body {
@@ -7,8 +10,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-main {
-    margin: 0 auto;
-    width: 70%;
-    height: fit-content;
+h1 {
+    margin: 0;
 }

@@ -13,6 +13,15 @@ app.use(cors(corsOption));
 
 app.use("/api/v1", v1);
 
+app.use((error, req, res) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Internal server error.";
+  res.status(errorStatus).json({
+    status: errorStatus,
+    message: errorMessage,
+  });
+});
+
 app.listen(app.get("port"), () => {
   console.log(`server is running http://localhost:${process.env.PORT || 3000}`);
 });

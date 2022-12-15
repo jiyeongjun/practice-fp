@@ -4,6 +4,16 @@ import { QUERY, QUERY1, EQ, VALUES, SET } from "../../config/ConnectDB.js";
 
 const router = express.Router();
 
+const todoIdErrorHandler = (req, res, next) => {
+  const { todo_id } = req.params;
+  if (todo_id) next();
+  else {
+    const error = new Error("todo_id is required.");
+    error.status = 400;
+    next(error);
+  }
+};
+
 router.get("/", async (req, res) => {
   const todos = await QUERY`
         SELECT *
@@ -23,7 +33,7 @@ router.post("/", async (req, res) => {
   res.status(201).json(createdTodo);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:todo_id", todoIdErrorHandler, async (req, res) => {
   const title = req.body;
   const { id } = req.params;
   const updatedTodo = await QUERY1`
@@ -34,12 +44,12 @@ router.put("/:id", async (req, res) => {
   `;
 });
 
-router.delete("/:id", async (req, res, next) => {
-  const { id } = req.params;
+router.delete("/:todo_id", todoIdErrorHandler, async (req, res, next) => {
+  const { todo_id } = req.params;
+
   const deletedTodo = await QUERY1`
-      UPDATE todo
-      ${SET({ deleted_at: new Date() })}
-      WHERE ${EQ({ id })}
+      DELETE FROM todo
+      WHERE ${EQ({ todo_id })}
       RETURNING *;
     `;
   res.status(200).json(deletedTodo);
