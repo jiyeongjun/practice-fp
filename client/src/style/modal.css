@@ -1,12 +1,15 @@
 .modal {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 2;
 }
+
+.backdrop {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 .modal-content {
     position: absolute;
     top: 0;
@@ -19,13 +22,15 @@
     background: #fff;
     border-radius: 8px;
     text-align: center;
-    z-index: 3;
+    z-index: 9999;
 }
+
 .modal-text {
     padding: 0 24px;
     margin-top: 56px;
     margin-bottom: 16px;
 }
+
 .modal-buttons button {
     padding: 8px;
     width: 60px;
@@ -35,9 +40,11 @@
     margin: 3px;
     cursor: pointer;
 }
+
 .modal-buttons button:hover {
     filter: brightness(0.9);
 }
+
 .modal-buttons button.ok {
     border: 0;
     color: #fff;

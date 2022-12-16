@@ -35,13 +35,14 @@ router.post("/", async (req, res) => {
 
 router.put("/:todo_id", todoIdErrorHandler, async (req, res) => {
   const title = req.body;
-  const { id } = req.params;
+  const { todo_id } = req.params;
   const updatedTodo = await QUERY1`
     UPDATE todo
     ${SET(pick(["title", "is_completed"], title))}
-    WHERE ${EQ({ id })}
+    WHERE ${EQ({ todo_id })}
     RETURNING *;
   `;
+  res.status(200).json(updatedTodo);
 });
 
 router.delete("/:todo_id", todoIdErrorHandler, async (req, res, next) => {

@@ -12,9 +12,9 @@
 
 ## 구동 방법
 
-데이터베이스 구동  (PostgreSQL)
+- 데이터베이스 구동  (PostgreSQL)
 
-### Run
+### Run - root folder
 
 ```bash
 npm i
@@ -23,12 +23,10 @@ npm start
 
 ### URL
 
-프로젝트 루트 폴더에서 실행
-
 - client: http://localhost:1234
 - server: http://localhost:3000
 
-### .env 파일 생성
+### .env 파일 생성 - server folder
 
 ```
 PORT=3000

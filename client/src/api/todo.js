@@ -11,12 +11,12 @@ const deleteTodo = (todo_id) =>
   axios.delete(`v1/todo/${todo_id}`).then(({ data }) => data);
 const updateTodo = ({ todo_id, title, is_completed }) =>
   axios
-    .put(`/v1/todos/${todo_id}`, {
-      todo_id,
-      title,
-      is_completed,
-    })
-    .then(({ data }) => data);
+  .put(`/v1/todo/${todo_id}`, {
+    todo_id,
+    title,
+    is_completed,
+  })
+  .then(({ data }) => data);
 
 export default {
   readTodos,

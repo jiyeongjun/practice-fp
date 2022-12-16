@@ -1,4 +1,4 @@
-import { strMap, html, go, pipe, curry, tap } from "fxjs";
+import { strMap, html, go, pipe, curry, tap, pick } from "fxjs";
 import { $el, $qs, $appendTo } from "fxdom";
 import util from "./util";
 import TodoApi from "../../api/todo";
@@ -7,7 +7,6 @@ import { $delegate } from "fxdom/es";
 
 const Todo = {};
 
-/** @type {(parent : HTMLElement) => void} */
 Todo.append = (parent) =>
   Loading(
     go(
@@ -15,8 +14,8 @@ Todo.append = (parent) =>
       Todo.baseTmpl, // base template을 생성하고
       $el, // htmlElement로 변환하고
       $appendTo($qs(parent)), // 원하는 element에 append하고
-      Todo.addEvent // event를 binding한다.
-    )
+      Todo.addEvent, // event를 binding한다.
+    ),
   );
 
 // template
@@ -37,11 +36,8 @@ Todo.baseTmpl = (todoList) => html`
 
 Todo.itemTmpl = (todo) => html`
     <li class="todo-item" data-todo-id=${todo.todo_id}>
-        <input type="checkbox"
-               id="todo${todo.todo_id}"
-               ${todo.is_completed ? "checked" : ""}
-        />
-        <label for="todo${todo.todo_id}">${todo.title}</label>
+        <span class="todo-check"></span>
+        <label class="todo-message" for="todo${todo.todo_id}">${todo.title}</label>
         <input class="edit-todo hidden" type="text" value="${todo.title}"/>
         <button class="button-edit">수정</button>
         <button class="button-save hidden">저장</button>
@@ -50,9 +46,13 @@ Todo.itemTmpl = (todo) => html`
 `;
 
 // event binding
-Todo.addEvent = tap(
+Todo.addEvent = el => go(
+  el,
   $delegate("click", ".button-add", util.addFn),
-  $delegate("click", ".button-delete", util.deleteFn)
+  $delegate("click", ".button-delete", util.deleteFn),
+  $delegate('click', '.button-edit', util.editFn),
+  $delegate('click', '.button-save', util.saveFn),
+  $delegate('click', '.todo-check', util.toggleFn),
 );
 
 export default Todo;

@@ -1,7 +1,17 @@
 .todo {
-    background-color: cornflowerblue;
+    background-color: #88a7e1;
 }
 
-.hidden {
-    display: none;
+
+.todo-check {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.todo-checked {
+    background-color: #0f2044;
 }
