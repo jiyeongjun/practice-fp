@@ -89,12 +89,6 @@ const toggleFn = ({ currentTarget }) => {
   );
 };
 
-// Optimistic Update 낙관적 업데이트 구현하기
-// $optPatch = curry(act, el) => 성공 ? replace : tap;
-// act = { url, body }
-// const $optUpdate = curry((act, el) => {
-//
-// })
 
 export default {
   addFn,

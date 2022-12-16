@@ -53,6 +53,9 @@ Todo.addEvent = el => go(
   $delegate('click', '.button-edit', util.editFn),
   $delegate('click', '.button-save', util.saveFn),
   $delegate('click', '.todo-check', util.toggleFn),
+  $delegate('keyup', ".edit-todo", (e) => {
+    e.key === 'Enter' && util.saveFn(e);
+  }),
 );
 
 export default Todo;
