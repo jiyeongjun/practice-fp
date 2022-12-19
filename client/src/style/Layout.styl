@@ -1,0 +1,26 @@
+.layout
+  display grid
+  padding: 0
+  margin: 0
+  width: 100vw
+  height: 100vh
+
+  grid-template-rows 75px 150px auto 75px
+
+  grid-template-areas "header"\ "menu"\ "main"\ "footer"
+
+  &__header
+    grid-area header
+    background-color #122859
+
+  &__menu
+    grid-area menu
+    background-color #dcc11d
+
+  &__main
+    grid-area main
+    background-color aliceblue
+
+  &__footer
+    grid-area footer
+    background-color brown

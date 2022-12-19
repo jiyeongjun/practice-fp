@@ -7,8 +7,8 @@ import { curry } from "fxjs";
 // })
 
 // act : { url, body }
-const $optPatch = curry((act, el) => {
+const $optUpdate = curry((act, el) => {
 
-})
+});
 
 // body 혹은 overflow-scroll 이 되어있는 template 영역에서 무한 스크롤을 쉽게 할 수 있도록 하는 scroll 구현하기

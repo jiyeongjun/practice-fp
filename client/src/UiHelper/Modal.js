@@ -4,15 +4,15 @@ export const modal = curry((btns, msg) =>
   new Promise((resolve) => go(
     html`
         <div class="modal">
-            <div class="modal-content">
-                <div class="modal-text">${msg}</div>
-                <div class="modal-buttons">
+            <div class="modal__content">
+                <div class="modal__content__text">${msg}</div>
+                <div class="modal__content__buttons">
                     ${strMap((btn) => `
                          <button type="button" class="${btn.type}">${btn.name}</button>
                     `, btns)}
                 </div>
             </div>
-            <div class="backdrop"/>
+            <div class="modal__backdrop"/>
         </div>`, // 모달 템플릿을 만든 뒤
     $el, // html엘리먼트로 만든 후
     $appendTo($qs("body")), // body에 붙여준다.

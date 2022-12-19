@@ -24,6 +24,7 @@
     "parcel": "^2.8.0"
   },
   "devDependencies": {
+    "@parcel/transformer-stylus": "^2.8.1",
     "buffer": "^5.7.1",
     "fxdom": "^0.8.3",
     "fxjs": "^0.21.3",
