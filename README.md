@@ -2,13 +2,6 @@
 
 마플의 FxJS, FxDOM, FxSQL을 활용하여 함수형 프로그래밍 연습하기
 
-- 구동 방법
-    - [Run](#run)
-    - [URL](#url)
-    - [.env](#env)
-    - [DDL](#ddl)
-
-<br>
 
 ## 구동 방법
 
