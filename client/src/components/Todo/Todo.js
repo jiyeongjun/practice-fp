@@ -1,10 +1,9 @@
-import { strMap, html, go, pipe, curry, tap, pick } from "fxjs";
-import { $el, $qs, $appendTo } from "fxdom";
+import { strMap, html, go } from "fxjs";
+import { $el, $appendTo, $delegate } from "fxdom";
 import util from "./util";
 import TodoApi from "../../api/todo";
 import Suspense from "../../lib/Suspense";
 import Loading from "../../UiHelper/Loading";
-import { $delegate } from "fxdom/es";
 
 const Todo = {};
 

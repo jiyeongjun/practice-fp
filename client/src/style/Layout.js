@@ -8,15 +8,20 @@ Layout.append = (parent) =>
     Layout.tmpl,
     $el,
     $appendTo(parent),
-    _ => $qs(".layout__main"),
+    _ => ({
+      header: $qs(".layout__header"),
+      mainMenu: $qs(".layout__menu"),
+      main: $qs(".layout__main"),
+      footer: $qs('.layout__footer'),
+    }),
   );
 
 
 Layout.tmpl = html`
     <div class='layout'>
         <header class="layout__header">header</header>
-        <div class="layout__menu">menu</div>
-        <main class="layout__main">main</main>
+        <div class="layout__menu"></div>
+        <main class="layout__main"></main>
         <footer class="layout__footer">footer</footer>
     </div>
 `;

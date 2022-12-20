@@ -1,23 +1,59 @@
 .todo
-  background-color #dcc11d
+  background-color #cfd0de
   height 100%
+  width 100%
+  max-width 1000px
+
+  h1
+    text-align center
 
   &__form
-    background-color aqua
+    background-color #041128
+    display flex
+    padding 10px
+    color white
 
+    label
+      margin-right 10px
+
+    &__input
+      flex 1
+
+    button
+      margin-left 10px
 
   &__list
 
     &__item
-      background-color #4467a8
+      border 2px solid white
+      display flex
+      align-items center
+      padding 10px
+
+      &__message
+        margin-right auto
 
       &__check
         display inline-block
-        height 10px
-        width 10px
+        height 15px
+        width 15px
         border-radius 50%
         background-color white
         cursor pointer
+        margin-right 5px
+        min-width 15px
 
       &__checked
-        background-color chartreuse
+        background-color #99ff31
+
+      &__button-edit
+        margin-left 10px
+        margin-right 10px
+
+      &__edit
+        margin-right auto
+        flex 1
+
+      button
+        min-width 40px
+        margin-left 10px

@@ -11,6 +11,7 @@ import todoApi from "../../api/todo";
 import Todo from "./Todo";
 import Suspense from "../../lib/Suspense";
 import UiHelper from "../../UiHelper";
+import Loading from "../../UiHelper/Loading";
 
 // Create
 const addFn = async () =>
@@ -25,20 +26,20 @@ const addFn = async () =>
         $el, // element로 만들어서
         $prependTo($qs(".todo__list")), // 투두리스트의 맨 위에 붙여 준다.
         tap((_) => $setVal("", $qs(".todo__form__input"))), // 입력창을 비워준다.
-      ), `<div>글을 등록중입니다</div>`, $qs(".todo__list"));
+      ), Loading, $qs(".todo__list"));
 
 
 // Delete
 const deleteFn = async ({ currentTarget }) => {
   await UiHelper.confirm("정말 삭제하시겠습니까?") && // 실제 진행할 건지 물어보고
-  UiHelper.Loading(
+  Suspense(
     go(
       currentTarget, // 현재 클릭한 요소가
       $closest(".todo__list__item"), // 포함된 아이템을 골라서
       tap(({ dataset }) => todoApi.deleteTodo(parseInt(dataset.todoId))),
       // 아이디를 넣어서 서버에 삭제 요청을 보내고
       $remove, // 해당 아이템을 삭제한다.
-    ));
+    ), Loading, $qs(".todo__list"));
 };
 
 const editFn = ({ currentTarget }) => {
@@ -53,7 +54,7 @@ const editFn = ({ currentTarget }) => {
 
   go(
     currentTarget, // 현재 클릭한 요소가
-    $closest('.todo-item'), // 포함된 아이템을 골라서
+    $closest('.todo__list__item'), // 포함된 아이템을 골라서
     $children, // 자식 요소를 찾은 후
     filter(el => !$hasClass('todo__list__item__check', el)), // 체크 박스만 제외시키고
     tap(each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
@@ -61,7 +62,7 @@ const editFn = ({ currentTarget }) => {
 };
 
 const saveFn = ({ currentTarget }) => {
-  UiHelper.Loading(
+  Suspense(
     go(
       currentTarget,
       $closest('.todo__list__item'),
@@ -77,14 +78,13 @@ const saveFn = ({ currentTarget }) => {
       $el, // element로 바꾸어 준 후
       tap($replaceAll($closest('.todo__list__item', currentTarget))),
       // 현재 요소를 업데이트 결과로 대체한다.
-    ));
+    ), Loading, $closest('.todo__list__item', currentTarget));
 };
 
 const toggleFn = ({ currentTarget }) => {
   go(
     currentTarget,
-    tap(console.log),
-    $toggleClass('todo__item__checked'),
+    $toggleClass('todo__list__item__checked'),
   );
 };
 
