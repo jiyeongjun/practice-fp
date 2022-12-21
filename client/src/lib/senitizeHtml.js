@@ -1,11 +1,12 @@
-import { go, tap, map, reduce, flat, zip, add, slice } from 'fxjs';
+import { go, reduce, add } from 'fxjs';
 import { $appendTo, $el, $html, $qs, $setText } from 'fxdom';
+import * as L from 'fxjs/Lazy'
 
 const html = (strs, ...vals) =>
   go(
-    zip(strs, map(sanitize, vals)),
-    flat,
-    _ => slice(0, -1, _),
+    L.zip(strs, L.map(sanitize, vals)),
+    L.flat,
+    L.filter(isNotUndefined),
     reduce(add),
   );
 const sanitize = val => go(
@@ -13,8 +14,9 @@ const sanitize = val => go(
   $setText(val),
   $html,
 );
+const isNotUndefined = a => a !== undefined;
 
-const tmpl = html`
+const exampleTmpl = html`
     <div>
         <div>
             <div>${1}</div>
@@ -26,10 +28,9 @@ const tmpl = html`
 `;
 
 go(
-  tmpl,
+  exampleTmpl,
   $el,
   $appendTo($qs('body')),
-  tap(console.log),
 );
 
 export default html;

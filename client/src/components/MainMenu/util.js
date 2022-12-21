@@ -1,20 +1,13 @@
 import { go, tap } from "fxjs";
-import { $hasClass, $qs, $toggleClass } from "fxdom";
+import { $qs, $toggleClass } from "fxdom";
 
 const selectTodoFn = ({ currentTarget }) => {
   go(
     currentTarget,
     changeMenu,
   );
-
 };
 
-const selectAjaxFn = ({ currentTarget }) => {
-  go(
-    currentTarget,
-    changeMenu,
-  );
-};
 
 const selectSsrFn = ({ currentTarget }) => {
   go(
@@ -40,7 +33,6 @@ const changeMenu = (el) =>
 
 export default {
   selectTodoFn,
-  selectAjaxFn,
   selectSpaFn,
   selectSsrFn,
 };

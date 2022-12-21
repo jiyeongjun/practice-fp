@@ -1,0 +1,23 @@
+.sideMenu
+  position fixed
+  top 77px
+  left 0
+  rigth 0
+  bottom 0
+  width 200px
+  height 100%
+  background-color #eeeef3
+  z-index 9999
+  visibility hidden
+  transform translateX(-100%)
+  transition transform 0.4s
+
+  @media screen and (max-width: 768px)
+    visibility visible
+
+.sideMenu_show
+  transform translateX(0px)
+
+
+
+
