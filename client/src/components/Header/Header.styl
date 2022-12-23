@@ -1,9 +1,10 @@
 .header
   display flex
   align-items center
-  background-color #eeeef3
+  background-color #323232
+  color #d6d6d6
   height 100%
-  border-bottom 2px solid #ccc6c6
+  transition 0.5s
 
   &__body
     display flex
@@ -14,14 +15,17 @@
     &__title_m
       font-weight bold
       display none
-      isMobile(block)
+      isMobile(flex)
+      align-items center
 
     &__hamburger_icon
       display none
-      isMobile(block)
+      isMobile(flex)
 
     &__search_icon
       cursor pointer
+      display flex
+      align-items center
 
     &__title
       font-weight bold
@@ -30,4 +34,6 @@
       isMobile(none)
 
 
+.header.open
+  background-color black
 

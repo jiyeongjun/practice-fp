@@ -1,60 +1,85 @@
 .todo
-  background-color #cfd0de
+  display flex
+  justify-content center
+  background-color #323232
+  color white
   height 100%
   width 100%
-  max-width 1000px
 
-  h1
-    text-align center
+  &__body
+    max-width 1000px
 
-  &__form
-    background-color #041128
-    display flex
-    padding 10px
-    color white
+    h1
+      padding 1rem
+      text-align center
 
-    label
-      margin-right 10px
-
-    &__input
-      flex 1
-
-    button
-      margin-left 10px
-
-  &__list
-
-    &__item
-      border-bottom 2px solid white
+    &__form
+      background-color #323232
       display flex
-      align-items center
-      padding 10px
+      padding 1rem
+      color white
 
-      &__message
-        margin-right auto
-        word-break break-all
-
-      &__check
-        display inline-block
-        height 15px
-        width 15px
-        border-radius 50%
-        background-color white
-        cursor pointer
-        margin-right 5px
-        min-width 15px
-
-      &__checked
-        background-color #99ff31
-
-      &__button-edit
-        margin-left 10px
+      label
         margin-right 10px
 
-      &__edit
-        margin-right auto
+      &__input
         flex 1
 
       button
-        min-width 40px
         margin-left 10px
+        border 0.5px solid white
+        background-color #000000
+        color white
+        font-weight lighter
+        cursor pointer
+
+
+    &__list
+      border-radius 10px
+      padding 1rem
+      color #999999
+      background-color black
+
+
+      &__item
+        border-bottom 0.5px solid #727070
+        display flex
+        align-items center
+        padding 10px
+
+        &__message
+          margin-right auto
+          word-break break-all
+
+        &__message.checked
+          text-decoration line-through
+
+        &__check
+          display inline-block
+          height 15px
+          width 15px
+          border-radius 50%
+          background-color white
+          cursor pointer
+          margin-right 10px
+          min-width 15px
+
+        &__checked
+          background-color #0096ff
+
+        &__button-edit
+          margin-left 10px
+          margin-right 10px
+
+        &__edit
+          margin-right auto
+          flex 1
+
+        button
+          min-width 40px
+          margin-left 5px
+          border 0.5px solid white
+          background-color #000000
+          color white
+          font-weight lighter
+          cursor pointer

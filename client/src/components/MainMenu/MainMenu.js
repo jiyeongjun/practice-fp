@@ -1,4 +1,4 @@
-import { go, html, tap } from "fxjs";
+import { go, html } from "fxjs";
 import { $appendTo, $delegate, $el } from "fxdom";
 import util from "./util";
 

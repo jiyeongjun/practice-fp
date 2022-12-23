@@ -12,6 +12,7 @@ import Todo from "./Todo";
 import Suspense from "../../lib/Suspense";
 import UiHelper from "../../UiHelper";
 import Loading from "../../UiHelper/Loading/Loading";
+import * as L from "fxjs";
 
 // Create
 const addFn = async () =>
@@ -48,16 +49,16 @@ const editFn = ({ currentTarget }) => {
     $qs('.todo__body__list__item__message.hidden'), // 수정 중인 요소의
     $closest('.todo__body__list__item'), // 아이템을 찾아서
     $children, // 자식 요소를 찾은 후
-    filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
-    tap(each($toggleClass('hidden'))), // 수정버튼을 누르기 전의 상태로 바꾼다.
+    L.filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
+    tap(L.each($toggleClass('hidden'))), // 수정버튼을 누르기 전의 상태로 바꾼다.
   );
 
   go(
     currentTarget, // 현재 클릭한 요소가
     $closest('.todo__body__list__item'), // 포함된 아이템을 골라서
     $children, // 자식 요소를 찾은 후
-    filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
-    tap(each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
+    L.filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
+    tap(L.each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
   );
 };
 
@@ -85,6 +86,10 @@ const toggleFn = ({ currentTarget }) => {
   go(
     currentTarget,
     $toggleClass('todo__body__list__item__checked'),
+    $closest('.todo__body__list__item'),
+    $children,
+    L.filter(el => $hasClass('todo__body__list__item__message', el)),
+    L.each($toggleClass('checked')),
   );
 };
 

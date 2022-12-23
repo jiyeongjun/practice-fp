@@ -1,5 +1,5 @@
-import { go, reduce, add } from 'fxjs';
-import { $appendTo, $el, $html, $qs, $setText } from 'fxdom';
+import { add, go, reduce } from 'fxjs';
+import { $el, $html, $setText } from 'fxdom';
 import * as L from 'fxjs/Lazy';
 
 const htmlS = (strs, ...vals) =>
@@ -17,21 +17,26 @@ const sanitize = val => go(
 );
 const isNotUndefined = a => a !== undefined;
 
-const test = `<div>fdsf</div>`;
-const exampleTmpl = htmlS`
-    <div>
-        <div>
-            <div>${test}</div>
-            ${'<script>alert("악의적 XSS공격")</script>'}
-        </div>
-        ${1}
-        ${'<script>alert("악의적 XSS공격2")</script>'}
-    </div>
-`;
+
+// example
+// const test = {
+//   a: "wow",
+// };
+// const exampleTmpl = htmlS`
+//     <div>
+//         <div>
+//             <div>${test}</div>
+//             ${'<script>alert("악의적 XSS공격")</script>'}
+//         </div>
+//         ${1}
+//         ${'<script>alert("악의적 XSS공격2")</script>'}
+//     </div>
+// `;
 // go(
 //   exampleTmpl,
 //   $el,
 //   $appendTo($qs('body')),
+//   console.log,
 // );
 
 

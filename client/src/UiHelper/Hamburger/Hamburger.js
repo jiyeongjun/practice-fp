@@ -5,7 +5,6 @@ const Hamburger = html`
         <div id="hamburger" class="hamburger">
             <div class="hamburger-line"></div>
             <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
         </div>
     </div>
 `;

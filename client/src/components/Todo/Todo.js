@@ -4,6 +4,7 @@ import util from "./util";
 import TodoApi from "../../api/todo";
 import Suspense from "../../lib/Suspense";
 import Loading from "../../UiHelper/Loading/Loading";
+import htmlS from "../../lib/htmlS";
 
 const Todo = {};
 
@@ -33,11 +34,10 @@ Todo.baseTmpl = (todoList) => html`
                 ${strMap(Todo.itemTmpl, todoList)}
             </ul>
         </div>
-        >
     </section>
 `;
 
-Todo.itemTmpl = (todo) => html`
+Todo.itemTmpl = (todo) => htmlS`
     <li class="todo__body__list__item" data-todo-id=${todo.todo_id}>
         <span class="todo__body__list__item__check"></span>
         <span class="todo__body__list__item__message" for="todo${todo.todo_id}">${todo.title}</span>

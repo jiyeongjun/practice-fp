@@ -11,7 +11,9 @@ Footer.append = (parent) =>
   );
 
 Footer.tmpl = html`
-    <footer class="footer">Footer-Component_CSR</footer>
+    <div class="footer">
+        <div class="footer__body">Footer-Component-CSR</div>
+    </div>
 `;
 
 export default Footer;
