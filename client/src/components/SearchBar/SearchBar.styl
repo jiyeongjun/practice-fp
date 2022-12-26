@@ -1,0 +1,60 @@
+.search
+  background-color #323232
+  position absolute
+  top 50px
+  width 100%
+  height 40px
+  transform translateY(-100%)
+  transition 0.3s
+  display flex
+  justify-content center
+  align-items center
+  border-top 0.5px solid #727070
+
+  &__body.open
+    animation searchBarOpen 0.3s
+
+  &__body
+    display flex
+    align-items center
+    justify-content space-between
+    width 80%
+    max-width 800px
+
+    input
+      flex 0.95
+      background-color transparent
+      border none
+      color white
+
+      &:focus
+        outline none
+
+    input::-webkit-search-decoration,
+    input::-webkit-search-cancel-button,
+    input::-webkit-search-results-button,
+    input::-webkit-search-results-decoration {
+      display: none;
+    }
+
+
+    .bi-searchBar
+      color #d6d6d6
+      cursor pointer
+
+    .bi-x-lg
+      color #d6d6d6
+      cursor pointer
+
+
+.search.open
+  transform translateY(0)
+
+@keyframes searchBarOpen
+  60%
+    transform scaleX(0.1)
+    opacity 0
+
+  100%
+    transform scaleX(1)
+    opacity 1

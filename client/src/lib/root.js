@@ -6,7 +6,7 @@ import { $appendTo, $el, $qs } from "fxdom";
 const root = (strs, ...vals) => {
   if (!vals.length) return;
   const isRoot = hasRootClass(...strs);
-  // Root Component일 경우 body에 append
+  // Root Component일 경우 body에 append한다.
   isRoot && go(
     strs,
     reduce(add),
@@ -18,7 +18,7 @@ const root = (strs, ...vals) => {
     zip(strs, vals),
     map(([str, val]) => [getClassName(str), val]),
     each(([parentSel, child]) => {
-        child && child.append($qs(parentSel));
+        child && child.generateTo($qs(parentSel));
 
         (child && child.tmpl?.vals) &&
         root(child.tmpl?.strs, ...child.tmpl.vals);

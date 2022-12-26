@@ -1,6 +1,6 @@
 import { strMap, html, go } from "fxjs";
 import { $el, $appendTo, $delegate } from "fxdom";
-import util from "./util";
+import event from "./eventCallback";
 import TodoApi from "../../api/todo";
 import Suspense from "../../lib/Suspense";
 import Loading from "../../UiHelper/Loading/Loading";
@@ -8,7 +8,7 @@ import htmlS from "../../lib/htmlS";
 
 const Todo = {};
 
-Todo.append = (parent) =>
+Todo.generateTo = (parent) =>
   Suspense(
     go(
       TodoApi.readTodos(), // 데이터를 가져와서
@@ -49,17 +49,16 @@ Todo.itemTmpl = (todo) => htmlS`
 `;
 
 // event binding
-Todo.addEvent = (el) =>
-  go(
-    el,
-    $delegate("click", ".todo__body__form__add", util.addFn),
-    $delegate("click", ".todo__body__list__item__button-delete", util.deleteFn),
-    $delegate("click", ".todo__body__list__item__button-edit", util.editFn),
-    $delegate("click", ".todo__body__list__item__button-save", util.saveFn),
-    $delegate("click", ".todo__body__list__item__check", util.toggleFn),
-    $delegate("keyup", ".todo__body__list__item__edit", (e) => {
-      e.key === "Enter" && util.saveFn(e);
-    }),
-  );
+Todo.addEvent = (el) => go(
+  el,
+  $delegate("click", ".todo__body__form__add", event.addFn),
+  $delegate("click", ".todo__body__list__item__button-delete", event.deleteFn),
+  $delegate("click", ".todo__body__list__item__button-edit", event.editFn),
+  $delegate("click", ".todo__body__list__item__button-save", event.saveFn),
+  $delegate("click", ".todo__body__list__item__check", event.toggleFn),
+  $delegate("keyup", ".todo__body__list__item__edit", (e) => {
+    e.key === "Enter" && event.saveFn(e);
+  }),
+);
 
 export default Todo;

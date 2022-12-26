@@ -4,13 +4,22 @@
   background-color #323232
   color #d6d6d6
   height 100%
-  transition 0.5s
+  animation headerClose 0.5s forwards
+  justify-content center
+  z-index 99999
+  position relative
+  top 0
 
   &__body
     display flex
     width 100%
-    justify-content space-between
+    max-width 1000px
     padding 0 30px
+
+
+    @media screen and (max-width: 768px)
+      width 100%
+      justify-content space-between
 
     &__title_m
       font-weight bold
@@ -26,6 +35,14 @@
       cursor pointer
       display flex
       align-items center
+      animation searchClose 0.5s forwards
+
+      .bi.open
+        color royalblue
+
+    &__search_icon.open
+      animation searchOpen 0.5s forwards
+
 
     &__title
       font-weight bold
@@ -35,5 +52,32 @@
 
 
 .header.open
-  background-color black
+  animation headerOpen 0.5s forwards
 
+@keyframes headerOpen
+  to
+    background-color black
+
+@keyframes headerClose
+  0%
+    background-color black
+
+  60%
+    background-color black
+
+  100%
+    background-color #323232
+
+@keyframes searchOpen
+  to
+    transform translateX(20px)
+    opacity 0
+
+@keyframes searchClose
+  from
+    transform translateX(20px)
+    opacity 0
+
+  to
+    transform translateX(0)
+    opacity 1

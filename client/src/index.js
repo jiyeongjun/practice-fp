@@ -5,11 +5,13 @@ import { root } from "./lib/root";
 import Layout from "./components/Layout/Layout";
 
 import SideMenu from "./UiHelper/SideMenu/SideMenu";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 const main = () => root`<div class="root">${Layout}</div>`;
 const sub = () => go(
-  $qs('body'),
-  tap(SideMenu.append),
+  $qs('.layout__header'),
+  tap(SideMenu.generateTo),
+  tap(SearchBar.generateTo),
 );
 
 main();

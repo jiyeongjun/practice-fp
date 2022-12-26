@@ -3,7 +3,7 @@ import { $appendTo, $el } from "fxdom";
 
 const Footer = {};
 
-Footer.append = (parent) =>
+Footer.generateTo = (parent) =>
   go(
     Footer.tmpl,
     $el,

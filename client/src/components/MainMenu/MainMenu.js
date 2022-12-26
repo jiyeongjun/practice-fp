@@ -1,10 +1,10 @@
 import { go, html } from "fxjs";
 import { $appendTo, $delegate, $el } from "fxdom";
-import util from "./util";
+import event from "./eventCallback";
 
 const MainMenu = {};
 
-MainMenu.append = (parent) =>
+MainMenu.generateTo = (parent) =>
   go(
     MainMenu.tmpl,
     $el,
@@ -26,9 +26,9 @@ MainMenu.tmpl = html`
 MainMenu.addEvent = (el) => {
   go(
     el,
-    $delegate("click", '.todo_menu', util.selectTodoFn),
-    $delegate('click', '.ssr_menu', util.selectSsrFn),
-    $delegate('click', '.spa_menu', util.selectSpaFn),
+    $delegate("click", '.todo_menu', event.selectTodoFn),
+    $delegate('click', '.ssr_menu', event.selectSsrFn),
+    $delegate('click', '.spa_menu', event.selectSpaFn),
   );
 };
 

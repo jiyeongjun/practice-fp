@@ -8,7 +8,7 @@ import { htmlC } from "../../lib/root";
 
 const Layout = {};
 
-Layout.append = (parent) => go(
+Layout.generateTo = (parent) => go(
   Layout.tmpl.gen,
   $el,
   $appendTo(parent),

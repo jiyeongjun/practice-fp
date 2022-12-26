@@ -1,8 +1,7 @@
 .header__body__hamburger_icon
   align-items center
-
-.hamburger-container
   cursor pointer
+
 
 .hamburger
   width 17px
@@ -14,15 +13,47 @@
 .hamburger-line
   width 100%
   height 1.5px
-  background #d6d6d6
-  transition 0.3s
+  background #ffffff
 
 
 .hamburger.open .hamburger-line:nth-of-type(1)
-  transform translateY(9px) rotate(45deg)
+  animation openNth1 0.4s forwards
 
 .hamburger.open .hamburger-line:nth-of-type(2)
-  opacity 0
+  animation openNth2 0.4s forwards
 
-.hamburger.open .hamburger-line:nth-of-type(3)
-  transform translateY(-9px) rotate(-45deg)
+.hamburger-line:nth-of-type(1)
+  animation closeNth1 0.4s forwards
+
+.hamburger-line:nth-of-type(2)
+  animation closeNth2 0.4s forwards
+
+
+@keyframes openNth1
+  20%
+    transform translateY(3px)
+
+  100%
+    transform translateY(4px) rotate(45deg)
+
+
+@keyframes openNth2
+  20%
+    transform translateY(-3px)
+
+  100%
+    transform translateY(-4px) rotate(-45deg)
+
+@keyframes closeNth1
+  0%
+    transform translateY(4px) rotate(45deg)
+
+  20%
+    transform translateY(3px)
+
+@keyframes closeNth2
+  0%
+    transform translateY(-4px) rotate(-45deg)
+
+  20%
+    transform translateY(-3px)
