@@ -34,11 +34,11 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:todo_id", todoIdErrorHandler, async (req, res) => {
-  const title = req.body;
+  const body = req.body;
   const { todo_id } = req.params;
   const updatedTodo = await QUERY1`
     UPDATE todo
-    ${SET(pick(["title", "is_completed"], title))}
+    ${SET(pick(["title", "is_completed"], body))}
     WHERE ${EQ({ todo_id })}
     RETURNING *;
   `;
@@ -54,6 +54,17 @@ router.delete("/:todo_id", todoIdErrorHandler, async (req, res, next) => {
       RETURNING *;
     `;
   res.status(200).json(deletedTodo);
+});
+
+router.get("/:todo_id/:is_completed", todoIdErrorHandler, async (req, res) => {
+  const { todo_id, is_completed } = req.params;
+  const updatedCompleted = await QUERY1`
+    UPDATE todo
+    ${SET({ is_completed })}
+    WHERE ${EQ({ todo_id })}
+    RETURNING *;
+  `;
+  res.status(200).json(updatedCompleted);
 });
 
 export default router;

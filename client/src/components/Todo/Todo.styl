@@ -64,22 +64,46 @@
           margin-right 10px
           min-width 15px
 
-        &__checked
+        &__check.checked
           background-color #0096ff
 
         &__button-edit
           margin-left 10px
           margin-right 10px
 
+          &:hover
+            color #7f9dee
+            border 0.5px solid #7f9dee
+
+        &__button-delete
+
+          &:hover
+            color #da4444
+            border 0.5px solid #da4444
+
+        &__button-save
+          display block
+          opacity 1
+
+          &:hover
+            color greenyellow
+            border 0.5px solid greenyellow
+
         &__edit
           margin-right auto
           flex 1
+          height 100%
 
         button
-          min-width 40px
+          padding 2px 15px
+          display flex
+          align-items center
+          justify-content center
+          min-width 60px
           margin-left 5px
           border 0.5px solid white
           background-color #000000
           color white
           font-weight lighter
           cursor pointer
+          border-radius 10px

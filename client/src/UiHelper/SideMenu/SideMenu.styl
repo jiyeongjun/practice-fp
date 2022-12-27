@@ -10,6 +10,8 @@
   z-index 9999
   transition 0.5s
   overflow hidden
+  display none
+  isMobile(block)
 
   &__content.open
     animation openSideMenuItem 0.5s forwards
@@ -26,10 +28,6 @@
 
       &:hover
         color white
-
-
-  @media screen and (max-width: 768px)
-    visibility visible
 
 
 .sideMenu.open

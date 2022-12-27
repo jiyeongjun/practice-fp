@@ -1,6 +1,7 @@
-import { go, html, tap } from "fxjs";
-import { $appendTo, $delegate, $el, $qs, $remove, $toggleClass } from "fxdom";
-import MainMenu from "../../components/MainMenu/MainMenu";
+import { go, html } from "fxjs";
+import { $appendTo, $delegate, $el } from "fxdom";
+import event from "./eventCallback";
+
 
 const SideMenu = {};
 
@@ -35,30 +36,10 @@ SideMenu.tmpl = html`
 SideMenu.addEvent = (el) =>
   go(
     el,
-    $delegate("click", '.todo_side_menu', selectTodoFn),
-    $delegate("click", '.ssr_side_menu', selectSsrFn),
-    $delegate("click", '.spa_side_menu', selectSpaFn),
+    $delegate("click", '.todo_side_menu', event.selectTodoFn),
+    $delegate("click", '.ssr_side_menu', event.selectSsrFn),
+    $delegate("click", '.spa_side_menu', event.selectSpaFn),
   );
 ;
 
-const selectTodoFn = () => {
-  $toggleClass("open", $qs(".hamburger"));
-  $toggleClass("open", $qs(".sideMenu"));
-  $toggleClass("open", $qs(".header"));
-  $toggleClass("open", $qs(".header__body__search_icon"));
-};
-
-const selectSsrFn = () => {
-  $toggleClass("open", $qs(".hamburger"));
-  $toggleClass("open", $qs(".sideMenu"));
-  $toggleClass("open", $qs(".header"));
-  $toggleClass("open", $qs(".header__body__search_icon"));
-};
-
-const selectSpaFn = () => {
-  $toggleClass("open", $qs(".hamburger"));
-  $toggleClass("open", $qs(".sideMenu"));
-  $toggleClass("open", $qs(".header"));
-  $toggleClass("open", $qs(".header__body__search_icon"));
-};
 export default SideMenu;

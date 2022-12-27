@@ -1,5 +1,5 @@
-import { strMap, html, go } from "fxjs";
-import { $el, $appendTo, $delegate } from "fxdom";
+import { strMap, html, go, tap } from "fxjs";
+import { $el, $appendTo, $delegate, $on } from "fxdom";
 import event from "./eventCallback";
 import TodoApi from "../../api/todo";
 import Suspense from "../../lib/Suspense";
@@ -38,9 +38,9 @@ Todo.baseTmpl = (todoList) => html`
 `;
 
 Todo.itemTmpl = (todo) => htmlS`
-    <li class="todo__body__list__item" data-todo-id=${todo.todo_id}>
-        <span class="todo__body__list__item__check"></span>
-        <span class="todo__body__list__item__message" for="todo${todo.todo_id}">${todo.title}</span>
+    <li class="todo__body__list__item ${todo.is_completed ? "checked" : ""}" data-todo-id=${todo.todo_id}>
+        <span class="todo__body__list__item__check ${todo.is_completed ? "checked" : ""}"></span>
+        <span class="todo__body__list__item__message ${todo.is_completed ? "checked" : ""}" for="todo${todo.todo_id}">${todo.title}</span>
         <input class="todo__body__list__item__edit hidden" type="text" value="${todo.title}"/>
         <button class="todo__body__list__item__button-edit">수정</button>
         <button class="todo__body__list__item__button-save hidden">저장</button>
@@ -55,9 +55,13 @@ Todo.addEvent = (el) => go(
   $delegate("click", ".todo__body__list__item__button-delete", event.deleteFn),
   $delegate("click", ".todo__body__list__item__button-edit", event.editFn),
   $delegate("click", ".todo__body__list__item__button-save", event.saveFn),
-  $delegate("click", ".todo__body__list__item__check", event.toggleFn),
+  $delegate("click", ".todo__body__list__item__check", event.completeFn),
   $delegate("keyup", ".todo__body__list__item__edit", (e) => {
     e.key === "Enter" && event.saveFn(e);
+  }),
+  $on("submit", ".todo__body__form", (e) => {
+    e.preventDefault();
+    event.addFn();
   }),
 );
 

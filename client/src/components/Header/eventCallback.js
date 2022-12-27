@@ -1,29 +1,26 @@
 import { delay, go, tap } from "fxjs";
-import { $blur, $find, $focus, $hasClass, $qs, $toggleClass } from "fxdom";
-
+import { $blur, $each, $focus, $hasClass, $qs, $toggleClass } from "fxdom";
+import { sideMenuOnOff } from "../../UiHelper/SideMenu/eventCallback";
+import closest from "fxdom/closest.js";
+import findAll from "fxdom/findAll.js";
 
 const hamburgerFn = ({ currentTarget }) => {
-  go(
-    currentTarget,
-    tap(
-      $toggleClass("open"),
-      _ => $toggleClass("open", $qs(".sideMenu")),
-      _ => $toggleClass("open", $qs(".header")),
-      _ => $toggleClass("open", $qs(".header__body__search_icon")),
-      _ => $toggleClass("open", $qs(".sideMenu__content")),
-    ),
-  );
+  sideMenuOnOff(currentTarget);
 };
 
 const searchFn = ({ currentTarget }) => {
   go(
     currentTarget,
-    tap(
-      $toggleClass("open"),
-      _ => $toggleClass("open", $qs(".search")),
-      _ => $toggleClass("open", $qs(".search__body")),
-    ),
+    $toggleClass("open"),
   );
+
+  go(
+    currentTarget,
+    closest("header"),
+    findAll(".search, .search__body"),
+    tap($each(el => $toggleClass("open", el))),
+  );
+
 
   $hasClass("open", currentTarget) ?
     go(

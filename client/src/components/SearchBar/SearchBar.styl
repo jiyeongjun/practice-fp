@@ -10,9 +10,10 @@
   justify-content center
   align-items center
   border-top 0.5px solid #727070
+  overflow-x hidden
 
   &__body.open
-    animation searchBarOpen 0.3s
+    animation searchBarOpen 0.5s
 
   &__body
     display flex
@@ -51,10 +52,13 @@
   transform translateY(0)
 
 @keyframes searchBarOpen
-  60%
-    transform scaleX(0.1)
+  0%
+    transform translateX(50%)
+    opacity 0
+
+  50%
     opacity 0
 
   100%
-    transform scaleX(1)
+    transform translateX(0)
     opacity 1

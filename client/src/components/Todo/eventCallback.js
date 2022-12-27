@@ -5,7 +5,7 @@ import {
   $qs,
   $setVal,
   $closest,
-  $remove, $children, $toggleClass, $findAll, $is, $find, $val, $hasClass, $replaceAll,
+  $remove, $children, $toggleClass, $findAll, $is, $find, $val, $hasClass, $replaceAll, $blur, $each, $data,
 } from "fxdom";
 import todoApi from "../../api/todo";
 import Todo from "./Todo";
@@ -15,9 +15,13 @@ import Loading from "../../UiHelper/Loading/Loading";
 import * as L from "fxjs";
 
 // Create
-const addFn = async () =>
+const addFn = async () => {
+  go(
+    $qs(".todo__body__form__input"),
+    $blur,
+  );
   !$qs(".todo__body__form__input").value
-    ? await UiHelper.alert("할 일을 입력해주세요!") // 작성글 없는 경우 안내창을 띄워준다.¡
+    ? await UiHelper.alert("할 일을 입력해주세요!") // 작성글 없는 경우 안내창을 띄워준다.
     : Suspense(
       // 작성글 있는 경우
       go(
@@ -28,6 +32,7 @@ const addFn = async () =>
         $prependTo($qs(".todo__body__list")), // 투두리스트의 맨 위에 붙여 준다.
         tap((_) => $setVal("", $qs(".todo__body__form__input"))), // 입력창을 비워준다.
       ), Loading, $qs(".todo__body__list"));
+};
 
 
 // Delete
@@ -72,7 +77,7 @@ const saveFn = ({ currentTarget }) => {
       title => ({
         todo_id: parseInt($closest('.todo__body__list__item', currentTarget).dataset.todoId),
         title,
-        is_completed: $hasClass('todo__body__list__item__check', $qs(".todo__body__list__item")),
+        is_completed: $hasClass('checked', $closest(".todo__body__list__item", currentTarget)),
       }), // update요청을 위한 객체로 만든 후
       todoApi.updateTodo, // 서버에 update요청을 하고
       Todo.itemTmpl, // 서버로부터 받은 업데이트 결과를
@@ -82,14 +87,17 @@ const saveFn = ({ currentTarget }) => {
     ), Loading, $closest('.todo__body__list__item', currentTarget));
 };
 
-const toggleFn = ({ currentTarget }) => {
+const completeFn = ({ currentTarget }) => {
   go(
     currentTarget,
-    $toggleClass('todo__body__list__item__checked'),
-    $closest('.todo__body__list__item'),
-    $children,
-    L.filter(el => $hasClass('todo__body__list__item__message', el)),
-    L.each($toggleClass('checked')),
+    $closest(".todo__body__list__item"),
+    el => todoApi.updateIsCompleted({
+      todo_id: parseInt(el.dataset.todoId),
+      is_completed: !$hasClass('checked', el),
+    }),
+    Todo.itemTmpl,
+    $el,
+    tap($replaceAll($closest('.todo__body__list__item', currentTarget))),
   );
 };
 
@@ -99,5 +107,5 @@ export default {
   deleteFn,
   editFn,
   saveFn,
-  toggleFn,
+  completeFn,
 };
