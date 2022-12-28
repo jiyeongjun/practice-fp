@@ -24,7 +24,6 @@ Todo.baseTmpl = (todoList) => html`
     <section class="todo">
         <div class="todo__body">
             <h1>To-Do List</h1>
-
             <form class="todo__body__form">
                 <label for="todo__body__form__input">New Task:</label>
                 <input type="text" id="todo__body__form__input" class="todo__body__form__input" placeholder="할 일 입력하기"/>
@@ -42,9 +41,9 @@ Todo.itemTmpl = (todo) => htmlS`
         <span class="todo__body__list__item__check ${todo.is_completed ? "checked" : ""}"></span>
         <span class="todo__body__list__item__message ${todo.is_completed ? "checked" : ""}" for="todo${todo.todo_id}">${todo.title}</span>
         <input class="todo__body__list__item__edit hidden" type="text" value="${todo.title}"/>
-        <button class="todo__body__list__item__button-edit">수정</button>
-        <button class="todo__body__list__item__button-save hidden">저장</button>
-        <button class="todo__body__list__item__button-delete">삭제</button>
+        <button type="button" class="todo__body__list__item__button-edit">수정</button>
+        <button type="button" class="todo__body__list__item__button-save hidden">저장</button>
+        <button type="button" class="todo__body__list__item__button-delete">삭제</button>
     </li>
 `;
 

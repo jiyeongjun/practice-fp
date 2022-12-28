@@ -5,7 +5,20 @@ import {
   $qs,
   $setVal,
   $closest,
-  $remove, $children, $toggleClass, $findAll, $is, $find, $val, $hasClass, $replaceAll, $blur, $each, $data,
+  $remove,
+  $children,
+  $toggleClass,
+  $findAll,
+  $is,
+  $find,
+  $val,
+  $hasClass,
+  $replaceAll,
+  $blur,
+  $each,
+  $data,
+  $focus,
+  $attr, $setAttr, $setData,
 } from "fxdom";
 import todoApi from "../../api/todo";
 import Todo from "./Todo";
@@ -65,9 +78,20 @@ const editFn = ({ currentTarget }) => {
     L.filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
     tap(L.each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
   );
+
+  go(
+    currentTarget,
+    $closest('.todo__body__list__item'),
+    $find("input"),
+    tap($focus),
+    tap(el => $setData({ value: $val(el) }, el)),
+    tap($setVal("")),
+    tap(el => $setVal($data(el).value, el)),
+  );
 };
 
 const saveFn = ({ currentTarget }) => {
+
   Suspense(
     go(
       currentTarget,

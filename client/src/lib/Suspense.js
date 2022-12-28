@@ -1,12 +1,12 @@
-import { tap, go } from "fxjs";
-import { $el, $prependTo, $remove } from "fxdom";
+import { go, tap } from "fxjs";
+import { $appendTo, $el, $remove } from "fxdom";
 
 
 export const Suspense = (f, fallback, parent) =>
   go(
     fallback,
     $el,
-    $prependTo(parent),
+    $appendTo(parent),
     tap(async _ => await f),
     $remove,
     _ => parent,

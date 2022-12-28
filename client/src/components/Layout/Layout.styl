@@ -8,6 +8,8 @@
 
   grid-template-areas "header"\ "menu"\ "main"\ "footer"
 
+  exceptMainHeight = 275px
+
   &__header
     grid-area header
     position sticky
@@ -18,6 +20,7 @@
 
   &__main
     grid-area main
+    min-height "calc(100vh - %s)" % (exceptMainHeight)
 
   &__footer
     grid-area footer
