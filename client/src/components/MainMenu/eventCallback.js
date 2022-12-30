@@ -1,15 +1,8 @@
-import { go, tap } from "fxjs";
+import { delay, go, tap } from "fxjs";
 import { $qs, $toggleClass } from "fxdom";
 
 const selectTodoFn = ({ currentTarget }) => {
-  go(
-    currentTarget,
-    changeMenu,
-  );
-};
-
-
-const selectSsrFn = ({ currentTarget }) => {
+  console.log(currentTarget);
   go(
     currentTarget,
     changeMenu,
@@ -22,6 +15,22 @@ const selectSpaFn = ({ currentTarget }) => {
     changeMenu,
   );
 };
+
+const selectSsrFn = ({ currentTarget }) => {
+  go(
+    currentTarget,
+    changeMenu,
+    _ =>
+      location.href = "http://localhost:3000",
+  );
+
+  go(
+    $qs(".todo_menu"),
+    delay(500),
+    changeMenu,
+  );
+};
+
 
 const changeMenu = (el) =>
   go(

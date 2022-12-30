@@ -4,7 +4,6 @@
   background-color #323232
   color #d6d6d6
   height 100%
-  animation headerClose 0.5s forwards
   justify-content center
   z-index 99999
   position relative
@@ -35,7 +34,6 @@
       cursor pointer
       display flex
       align-items center
-      animation searchClose 0.5s forwards
 
       .bi.open
         color royalblue
@@ -43,6 +41,8 @@
     &__search_icon.open
       animation searchOpen 0.5s forwards
 
+    &__search_icon.close
+      animation searchClose 0.5s forwards
 
     &__title
       font-weight bold
@@ -53,6 +53,9 @@
 
 .header.open
   animation headerOpen 0.5s forwards
+
+.header.close
+  animation headerClose 0.5s forwards
 
 @keyframes headerOpen
   to

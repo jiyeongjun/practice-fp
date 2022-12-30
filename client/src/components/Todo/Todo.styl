@@ -1,7 +1,7 @@
 .todo
   display flex
   justify-content center
-  background-color #323232
+  background-color #202734
   color white
   height 100%
   width 100%
@@ -14,7 +14,7 @@
       text-align center
 
     &__form
-      background-color #323232
+      background-color #202734
       display flex
       padding 1rem
       color white
@@ -24,6 +24,16 @@
 
       &__input
         flex 1
+        background-color #202734
+        color white
+        border none
+        outline none
+        border-bottom 1px solid #919191
+        transition: 0.4s;
+
+        &:focus
+          border-bottom: 1px solid #ffffff
+
 
       button
         margin-left 10px
@@ -33,6 +43,7 @@
         font-weight lighter
         cursor pointer
         padding 2px 15px
+        border-radius 5px
 
 
     &__list
@@ -88,16 +99,16 @@
           opacity 1
 
           &:hover
-            color greenyellow
-            border 0.5px solid greenyellow
+            color #8dce2a
+            border 0.5px solid #8dce2a
 
         &__edit
           margin-right auto
           flex 1
           border none
+          outline none
           background-color black
           color white
-          outline none
 
         button
           padding 2px 15px

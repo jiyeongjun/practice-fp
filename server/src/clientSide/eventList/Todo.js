@@ -4,11 +4,11 @@ import {
   $blur,
   $children,
   $closest,
-  $data,
+  $data, $delegate,
   $el,
   $find,
   $focus,
-  $hasClass,
+  $hasClass, $on,
   $prependTo,
   $qs,
   $remove,
@@ -23,6 +23,22 @@ import Todo from "./Todo";
 import Suspense from "../../lib/Suspense";
 import UiHelper from "../../UiHelper";
 import Loading from "../../UiHelper/Loading/Loading";
+
+const addEvent = (el) => go(
+  el,
+  $delegate("click", ".todo__body__form__add", addFn),
+  $delegate("click", ".todo__body__list__item__button-delete", deleteFn),
+  $delegate("click", ".todo__body__list__item__button-edit", editFn),
+  $delegate("click", ".todo__body__list__item__button-save", saveFn),
+  $delegate("click", ".todo__body__list__item__check", completeFn),
+  $delegate("keyup", ".todo__body__list__item__edit", (e) => {
+    e.key === "Enter" && saveFn(e);
+  }),
+  $on("submit", ".todo__body__form", (e) => {
+    e.preventDefault();
+    addFn();
+  }),
+);
 
 // Create
 const addFn = async () => {
@@ -122,11 +138,4 @@ const completeFn = ({ currentTarget }) => {
   );
 };
 
-
-export default {
-  addFn,
-  deleteFn,
-  editFn,
-  saveFn,
-  completeFn,
-};
+export default addEvent;

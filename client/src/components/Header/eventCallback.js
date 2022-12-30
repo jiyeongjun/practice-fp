@@ -1,8 +1,7 @@
 import { delay, go, tap } from "fxjs";
-import { $blur, $each, $focus, $hasClass, $qs, $toggleClass } from "fxdom";
-import { sideMenuOnOff } from "../../UiHelper/SideMenu/eventCallback";
-import closest from "fxdom/closest.js";
-import findAll from "fxdom/findAll.js";
+import { $blur, $closest, $each, $findAll, $focus, $hasClass, $qs, $toggleClass } from "fxdom";
+import { sideMenuOnOff } from "./SideMenu/eventCallback";
+import switchClass from "../../lib/switchClass";
 
 const hamburgerFn = ({ currentTarget }) => {
   sideMenuOnOff(currentTarget);
@@ -16,9 +15,9 @@ const searchFn = ({ currentTarget }) => {
 
   go(
     currentTarget,
-    closest("header"),
-    findAll(".search, .search__body"),
-    tap($each(el => $toggleClass("open", el))),
+    $closest("header"),
+    $findAll(".search, .search__body"),
+    tap($each(switchClass("open", "close"))),
   );
 
 

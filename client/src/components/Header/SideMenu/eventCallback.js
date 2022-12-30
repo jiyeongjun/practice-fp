@@ -1,8 +1,13 @@
-import { go, tap } from "fxjs";
+import { delay, go, range, tap } from "fxjs";
 import { $closest, $each, $findAll, $qs, $setAttr, $toggleClass } from "fxdom";
+import switchClass from "../../../lib/switchClass";
 
 const selectTodoFn = ({ currentTarget }) => {
-  sideMenuOnOff(currentTarget);
+  go(
+    currentTarget,
+    sideMenuOnOff,
+    delay(500),
+  );
 };
 
 const selectSsrFn = ({ currentTarget }) => {
@@ -13,15 +18,16 @@ const selectSpaFn = ({ currentTarget }) => {
   sideMenuOnOff(currentTarget);
 };
 
-export const sideMenuOnOff = (el) => {
+export const sideMenuOnOff = (el) =>
   go(
     el,
     $closest("header"),
     $findAll(".header, .hamburger, .sideMenu, " +
       ".sideMenu__content, .header__body__search_icon"),
-    tap($each(el => $toggleClass("open", el))),
+    tap($each(switchClass("open", "close"))),
+    _ => el,
   );
-};
+
 
 export default {
   selectSpaFn,

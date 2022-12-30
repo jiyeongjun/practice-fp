@@ -1,25 +1,17 @@
-import { strMap, html, go, tap } from "fxjs";
-import { $el, $appendTo, $delegate, $on } from "fxdom";
-import event from "./eventCallback";
-import TodoApi from "../../api/todo";
-import Suspense from "../../lib/Suspense";
-import Loading from "../../UiHelper/Loading/Loading";
-import htmlS from "../../lib/htmlS";
+import { html, strMap } from "fxjs";
+import htmlS from "../../lib/htmlS.js";
+import { QUERY } from "../../../config/ConnectDB.js";
 
 const Todo = {};
 
-Todo.generateTo = (parent) =>
-  Suspense(
-    go(
-      TodoApi.readTodos(), // 데이터를 가져와서
-      Todo.baseTmpl, // base template을 생성하고
-      $el, // htmlElement로 변환하고
-      $appendTo(parent), // 원하는 element에 append하고
-      Todo.addEvent, // event를 binding한다.
-    )
-    , Loading, parent);
+const todoList = await QUERY`
+        SELECT *
+        FROM todo
+        ORDER BY created_at DESC
+    `;
 
-// template
+Todo.tmpl = Todo.baseTmpl(todoList);
+
 Todo.baseTmpl = (todoList) => html`
     <section class="todo">
         <div class="todo__body">
@@ -47,22 +39,3 @@ Todo.itemTmpl = (todo) => htmlS`
         <button type="button" class="todo__body__list__item__button-delete">삭제</button>
     </li>
 `;
-
-// event binding
-Todo.addEvent = (el) => go(
-  el,
-  $delegate("click", ".todo__body__form__add", event.addFn),
-  $delegate("click", ".todo__body__list__item__button-delete", event.deleteFn),
-  $delegate("click", ".todo__body__list__item__button-edit", event.editFn),
-  $delegate("click", ".todo__body__list__item__button-save", event.saveFn),
-  $delegate("click", ".todo__body__list__item__check", event.completeFn),
-  $delegate("keyup", ".todo__body__list__item__edit", (e) => {
-    e.key === "Enter" && event.saveFn(e);
-  }),
-  $on("submit", ".todo__body__form", (e) => {
-    e.preventDefault();
-    event.addFn();
-  }),
-);
-
-export default Todo;

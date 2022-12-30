@@ -4,7 +4,7 @@ import { htmlC } from "../lib/root";
 
 const Sample = {};
 
-Sample.append = (parent) =>
+Sample.generateTo = (parent) =>
   go(
     Sample.tmpl.gen,
     $el,

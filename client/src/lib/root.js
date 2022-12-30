@@ -1,6 +1,6 @@
 import { add, each, go, map, reduce, zip } from "fxjs";
 import * as L from "fxjs/Lazy";
-import { $appendTo, $el, $qs } from "fxdom";
+import { $appendTo, $el, $prependTo, $qs } from "fxdom";
 
 
 const root = (strs, ...vals) => {
@@ -11,7 +11,7 @@ const root = (strs, ...vals) => {
     strs,
     reduce(add),
     $el,
-    $appendTo($qs("body")),
+    $prependTo($qs("body")),
   );
 
   go(
