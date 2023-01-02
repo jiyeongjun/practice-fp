@@ -1,6 +1,6 @@
 import { head } from "fxjs";
 import $els from "./$els.js";
-import { document } from "../jsdom.js";
+import { document } from "../../jsdom.js";
 
 const $el = (html) => {
   html = html.trim();

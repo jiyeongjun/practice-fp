@@ -14,4 +14,5 @@ go(
   each(addEvent),
 );
 console.log(EventList);
+console.log("11ddsadsasad111");
 

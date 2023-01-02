@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fxdom": "^0.8.3",
@@ -20,12 +21,16 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-middleware": "^6.0.1",
-    "webpack-hot-middleware": "^2.25.3"
+    "mini-css-extract-plugin": "^2.7.2"
   },
   "devDependencies": {
+    "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "style-loader": "^3.3.1",
+    "stylus": "^0.59.0",
+    "stylus-loader": "^7.1.0"
   }
 }

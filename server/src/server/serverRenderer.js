@@ -1,16 +1,19 @@
-import { go, tap } from "fxjs";
+import { curry, delay, go, map, take, tap } from "fxjs";
 import $el from "./lib/serverFxdom/$el.js";
-import $appendTo from "./lib/serverFxdom/$appendTo.js";
 import $qs from "./lib/serverFxdom/$qs.js";
-import { dom, initializeJsdom } from "./lib/jsdom.js";
+import { dom, initializeJsdom } from "./jsdom.js";
 import htmlS from "./lib/htmlS.js";
 import { Sample1, Sample2, Sample3 } from "./componenets/Sample.js";
 import generate from "./lib/generate.js";
 import { classStore } from "./lib/classStore.js";
 import appendTo from "./lib/serverFxdom/$appendTo.js";
-import qs from "./lib/serverFxdom/$qs.js";
+import Todo from "./componenets/Todo/Todo.js";
+import $appendTo from "./lib/serverFxdom/$appendTo.js";
+import MainMenu from "./componenets/MainMenu.js";
+import { QUERY } from "../config/ConnectDB.js";
 
-const exampleTmpl = htmlS`
+const tmpl = {};
+tmpl.tmpl = htmlS`
     <div>
         <div>
             <div>111</div>
@@ -23,26 +26,31 @@ const exampleTmpl = htmlS`
 `;
 
 
-const serverRenderer = (generatePageF) => {
+const serverRenderer = async (generatePageF) => {
+  await generatePageF();
+
+  const tmpl = dom.serialize();
   initializeJsdom();
-  classStore.clear();
-
-  generatePageF();
-
-  go(
-    `<script>window.state = ${JSON.stringify(classStore.classList)}</script>`,
-    $el,
-    appendTo($qs("head")),
-  );
-
-  return dom.serialize();
+  return tmpl;
 };
 
+
+export const TodoPage = () => {
+  go(
+    generate(Todo, $qs(".root")),
+  );
+
+};
+
+export const MainMenuPage = () => go(
+  MainMenu.tmpl,
+  $el,
+  $appendTo($qs(".root")),
+);
+
 export const SamplePage = () => go(
-  $qs("body"),
-  tap(generate(Sample1)),
-  tap(generate(Sample2)),
-  tap(generate(Sample3)),
+  $qs(".root"),
+  tap(generate(Todo)),
 );
 
 export default serverRenderer;

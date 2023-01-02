@@ -1,18 +1,19 @@
-import { html, strMap } from "fxjs";
+import { go, html, strMap, tap } from "fxjs";
 import htmlS from "../../lib/htmlS.js";
 import { QUERY } from "../../../config/ConnectDB.js";
+import $el from "../../lib/serverFxdom/$el.js";
+import $appendTo from "../../lib/serverFxdom/$appendTo.js";
 
 const Todo = {};
 
-const todoList = await QUERY`
+Todo.getData = async () => await QUERY`
         SELECT *
         FROM todo
         ORDER BY created_at DESC
     `;
 
-Todo.tmpl = Todo.baseTmpl(todoList);
 
-Todo.baseTmpl = (todoList) => html`
+Todo.tmpl = (todoList) => html`
     <section class="todo">
         <div class="todo__body">
             <h1>To-Do List</h1>
@@ -39,3 +40,5 @@ Todo.itemTmpl = (todo) => htmlS`
         <button type="button" class="todo__body__list__item__button-delete">삭제</button>
     </li>
 `;
+
+export default Todo;
