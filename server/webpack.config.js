@@ -15,7 +15,7 @@ export default {
       {
         test: /\.(styl|css)$/,
         use: [
-          'style-loader',
+          miniCssExtractPlugin.loader,
           'css-loader',
           'stylus-loader',
         ],
@@ -28,6 +28,6 @@ export default {
   output: {
     filename: 'bundle.js',
     path: process.cwd() + '/dist',
-    publicPath: '/',
+    publicPath: '/dist/',
   },
 };

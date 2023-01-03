@@ -1,17 +1,11 @@
-import { go, html, strMap, tap } from "fxjs";
-import htmlS from "../../lib/htmlS.js";
-import { QUERY } from "../../../config/ConnectDB.js";
-import $el from "../../lib/serverFxdom/$el.js";
-import $appendTo from "../../lib/serverFxdom/$appendTo.js";
+import { go, html, strMap } from "fxjs";
+import jsdomS from "../../server/lib/jsdomS.js";
+import todoApi from "../../api/todo.js";
+import generate from "../../server/lib/generate.js";
 
 const Todo = {};
 
-Todo.getData = async () => await QUERY`
-        SELECT *
-        FROM todo
-        ORDER BY created_at DESC
-    `;
-
+Todo.getData = todoApi.readTodos;
 
 Todo.tmpl = (todoList) => html`
     <section class="todo">
@@ -30,7 +24,7 @@ Todo.tmpl = (todoList) => html`
     </section>
 `;
 
-Todo.itemTmpl = (todo) => htmlS`
+Todo.itemTmpl = (todo) => jsdomS`
     <li class="todo__body__list__item ${todo.is_completed ? "checked" : ""}" data-todo-id=${todo.todo_id}>
         <span class="todo__body__list__item__check ${todo.is_completed ? "checked" : ""}"></span>
         <span class="todo__body__list__item__message ${todo.is_completed ? "checked" : ""}" for="todo${todo.todo_id}">${todo.title}</span>
@@ -40,5 +34,6 @@ Todo.itemTmpl = (todo) => htmlS`
         <button type="button" class="todo__body__list__item__button-delete">삭제</button>
     </li>
 `;
+
 
 export default Todo;

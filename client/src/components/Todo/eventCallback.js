@@ -1,5 +1,5 @@
-import * as L from "fxjs";
-import { go, tap } from "fxjs";
+import * as L from "fxjs/Lazy";
+import { each, go, tap } from "fxjs";
 import {
   $blur,
   $children,
@@ -22,7 +22,6 @@ import todoApi from "../../api/todo";
 import Todo from "./Todo";
 import Suspense from "../../lib/Suspense";
 import UiHelper from "../../UiHelper";
-import Loading from "../../UiHelper/Loading/Loading";
 
 // Create
 const addFn = async () => {
@@ -41,7 +40,7 @@ const addFn = async () => {
         $el, // element로 만들어서
         $prependTo($qs(".todo__body__list")), // 투두리스트의 맨 위에 붙여 준다.
         tap((_) => $setVal("", $qs(".todo__body__form__input"))), // 입력창을 비워준다.
-      ), Loading, $qs(".todo__body__list"));
+      ), UiHelper.Loading, $qs(".todo__body__list"));
 };
 
 
@@ -55,7 +54,7 @@ const deleteFn = async ({ currentTarget }) => {
       tap(({ dataset }) => todoApi.deleteTodo(parseInt(dataset.todoId))),
       // 아이디를 넣어서 서버에 삭제 요청을 보내고
       $remove, // 해당 아이템을 삭제한다.
-    ), Loading, $qs(".todo__body__list"));
+    ), UiHelper.Loading, $qs(".todo__body__list"));
 };
 
 const editFn = ({ currentTarget }) => {
@@ -65,7 +64,7 @@ const editFn = ({ currentTarget }) => {
     $closest('.todo__body__list__item'), // 아이템을 찾아서
     $children, // 자식 요소를 찾은 후
     L.filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
-    tap(L.each($toggleClass('hidden'))), // 수정버튼을 누르기 전의 상태로 바꾼다.
+    tap(each($toggleClass('hidden'))), // 수정버튼을 누르기 전의 상태로 바꾼다.
   );
 
   go(
@@ -73,7 +72,7 @@ const editFn = ({ currentTarget }) => {
     $closest('.todo__body__list__item'), // 포함된 아이템을 골라서
     $children, // 자식 요소를 찾은 후
     L.filter(el => !$hasClass('todo__body__list__item__check', el)), // 체크 박스만 제외시키고
-    tap(L.each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
+    tap(each($toggleClass('hidden'))), // 수정을 위한 형태로 바꾼다.
   );
 
   go(
@@ -105,7 +104,7 @@ const saveFn = ({ currentTarget }) => {
       $el, // element로 바꾸어 준 후
       tap($replaceAll($closest('.todo__body__list__item', currentTarget))),
       // 현재 요소를 업데이트 결과로 대체한다.
-    ), Loading, $closest('.todo__body__list__item', currentTarget));
+    ), UiHelper.Loading, $closest('.todo__body__list__item', currentTarget));
 };
 
 const completeFn = ({ currentTarget }) => {

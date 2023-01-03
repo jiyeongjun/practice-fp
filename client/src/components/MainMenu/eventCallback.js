@@ -21,7 +21,7 @@ const selectSsrFn = ({ currentTarget }) => {
     currentTarget,
     changeMenu,
     _ =>
-      location.href = "http://localhost:3000",
+      location.href = "http://localhost:3000/ssr/todo",
   );
 
   go(

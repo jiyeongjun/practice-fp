@@ -1,5 +1,4 @@
 import { html } from "fxjs";
-import { classStore } from "../lib/classStore.js";
 
 const Sample1 = {};
 Sample1.tmpl = html`

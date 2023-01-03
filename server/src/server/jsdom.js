@@ -6,13 +6,13 @@ const tmpl = `
     <!doctype html>
     <html lang="en">
     <head>
-      <link href="bundle.css" rel="stylesheet" type="text/css" />
+      <link href='/dist/bundle.css' rel="stylesheet" type="text/css" />
       <link rel="shortcut icon" href="#">
       <meta charset="UTF-8">
       <title>Server Side Rendering</title>
       <body>
       <div class="root"></div>
-      <script type='module' src='bundle.js'></script>
+      <script type='module' src='/dist/bundle.js'></script>
       </body>
     </head>
     </html>`;

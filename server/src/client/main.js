@@ -1,18 +1,13 @@
-import { each, go, map } from "fxjs";
-import EventList from "./eventList/index.js";
+import eventMap from "./eventMap.js";
+import { each, go } from "fxjs";
 import * as L from "fxjs/Lazy";
-import { $el, $qs } from "fxdom";
+import { $qs } from "fxdom";
 
-const classList = window.state;
-
-const addEvent = (el) => {
-  EventList[el]($qs(`.${el}`));
-};
-
-go(
-  classList,
-  each(addEvent),
+const addEvent = (obj) => go(
+  L.entries(obj),
+  each(([k, f]) => f($qs(k))),
+  console.log,
 );
-console.log(EventList);
-console.log("11ddsadsasad111");
+
+addEvent(eventMap);
 

@@ -4,21 +4,13 @@ import $appendTo from "./serverFxdom/$appendTo.js";
 import { dom, initializeJsdom } from "../jsdom.js";
 import $qs from "./serverFxdom/$qs.js";
 
-const generate = curry(async (component, el) => {
-  const data = component.getData && await component.getData();
-  data && go(
-    data,
+const generate = curry((component, parent) => new Promise((resolve) =>
+  go(
+    component.getData(),
     component.tmpl,
     $el,
-    $appendTo(el),
-  );
-
-  !data && go(
-    component.tmpl,
-    $el,
-    $appendTo(el),
-    console.log,
-  );
-});
+    $appendTo(parent),
+    resolve,
+  )));
 
 export default generate;
