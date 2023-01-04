@@ -1,14 +1,13 @@
-import { add, curry, each, go, head, reduce } from 'fxjs';
+import { add, go, isUndefined, reduce } from 'fxjs';
 import * as L from 'fxjs/Lazy';
-import $el from "./serverFxdom/$el.js";
-import $setText from "./serverFxdom/$setText.js";
-import $html from "./serverFxdom/$html.js";
+import { $el, $html, $setText } from "./serverFxdom/index.js";
+
 
 const jsdomS = (strs, ...vals) =>
   go(
     L.zip(strs, L.map(sanitize, vals)),
     L.flat,
-    L.filter(isNotUndefined),
+    L.reject(isUndefined),
     reduce(add),
   );
 
@@ -17,7 +16,6 @@ const sanitize = val => go(
   $setText(val),
   $html,
 );
-const isNotUndefined = a => a !== undefined;
 
 
 export default jsdomS;

@@ -1,20 +1,25 @@
-import $qs from "./lib/serverFxdom/$qs.js";
-import { dom, initializeJsdom } from "./jsdom.js";
 import Todo from "../componenets/Todo/Todo.js";
 import generate from "./lib/generate.js";
-import { go } from "fxjs";
-
+import { go, tap } from "fxjs";
+import { initDom } from "./lib/serverFxdom/setJsdom.js";
+import { $appendTo, $el, $qs } from "./lib/serverFxdom/index.js";
+import Layout from "../componenets/Layout/Layout.js";
+import { Router } from "../componenets/Layout/Router.js";
 
 const serverRenderer = async (render) => {
   await render();
-
-  const tmpl = dom.serialize();
-  initializeJsdom();
-  return tmpl;
+  return initDom();
 };
 
 
-export const TodoPage = () => go(
+export const BasicPage = ({ path }) => () => go(
+  Layout,
+  $el,
+  $appendTo($qs(".root")),
+  tap(_ => Router(path)),
+);
+
+export const renderTodo = () => go(
   $qs(".root"),
   generate(Todo),
 );

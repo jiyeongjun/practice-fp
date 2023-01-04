@@ -27,7 +27,8 @@ Todo.tmpl = (todoList) => html`
 Todo.itemTmpl = (todo) => jsdomS`
     <li class="todo__body__list__item ${todo.is_completed ? "checked" : ""}" data-todo-id=${todo.todo_id}>
         <span class="todo__body__list__item__check ${todo.is_completed ? "checked" : ""}"></span>
-        <span class="todo__body__list__item__message ${todo.is_completed ? "checked" : ""}" for="todo${todo.todo_id}">${todo.title}</span>
+        <span class="todo__body__list__item__message ${todo.is_completed ? "checked" : ""}"
+              for="todo${todo.todo_id}">${todo.title}</span>
         <input class="todo__body__list__item__edit hidden" type="text" value="${todo.title}"/>
         <button type="button" class="todo__body__list__item__button-edit">수정</button>
         <button type="button" class="todo__body__list__item__button-save hidden">저장</button>

@@ -1,6 +1,7 @@
+import { document } from "./setJsdom.js";
 import $each from "./$each.js";
 import $remove from "./$remove.js";
-import { document } from "../../jsdom.js";
+
 
 const fragmentRE = /^\s*<(\w+|!)[^>]*>/,
   table = document.createElement("table"),

@@ -6,10 +6,11 @@ import morgan from "morgan";
 import cors from "cors";
 import v1 from "./src/routes/v1/index.js";
 import ssr from './src/routes/ssr/index.js';
-import ServerRenderer, { TodoPage } from "./src/server/serverRenderer.js";
+import ServerRenderer, { renderTodo } from "./src/server/serverRenderer.js";
 
 const app = express();
 const compiler = webpack(config);
+
 
 app.use('./src', express.static('./src'));
 
@@ -29,7 +30,7 @@ app.use("/ssr", ssr);
 app.use("/src", express.static("./src"));
 
 app.get("/", async (req, res) => {
-  res.send(await ServerRenderer(TodoPage));
+  res.send(await ServerRenderer(renderTodo));
 });
 
 

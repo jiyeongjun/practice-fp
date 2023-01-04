@@ -1,4 +1,4 @@
-import { document } from "../../jsdom.js";
+import { document } from "./setJsdom.js";
 
 const $qs = (sel, base = document) => base.querySelector(sel);
 
