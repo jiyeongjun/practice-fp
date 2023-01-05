@@ -11,7 +11,7 @@ const todo = () => go(
 const pathObj = {
   "/todo": todo,
 };
-export const Router = (path) =>
+export const MainRouter = (path) =>
   pathObj[path]() ?? `<div>페이지가 존재하지 않습니다.</div>`;
 
 
