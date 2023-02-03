@@ -1,6 +1,8 @@
-import { JSDOM } from "jsdom";
+import jsdom from "jsdom";
 import { go, html, tap } from "fxjs";
-import { $el, $qs, $replaceAll } from "./index.js";
+import { $el, $qs, $replaceAll } from "./src/server/lib/serverFxdom/index.js";
+
+const { JSDOM } = jsdom;
 
 export const tmpl = html` <!DOCTYPE html>
   <html lang="en">
@@ -17,7 +19,9 @@ export const tmpl = html` <!DOCTYPE html>
   </html>`;
 
 export const dom = new JSDOM(tmpl);
-export const document = dom.window.document;
+global.window = dom.window;
+global.document = dom.window.document;
+global.navigator = dom.window.navigator;
 
 const pureBodyTmpl = `
     <div class="root"></div>
@@ -29,3 +33,4 @@ export const initDom = () =>
     dom.serialize(),
     tap((_) => initBody()),
   );
+export const fxdom = await import("fxdom");

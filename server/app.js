@@ -1,3 +1,4 @@
+import "./setDom.js";
 import express from "express";
 import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
@@ -5,20 +6,21 @@ import config from "./webpack.config.js";
 import morgan from "morgan";
 import cors from "cors";
 import v1 from "./src/routes/v1/index.js";
-import ssr from './src/routes/ssr/index.js';
+import ssr from "./src/routes/ssr/index.js";
 import ServerRenderer, { renderTodo } from "./src/server/serverRenderer.js";
 
 const app = express();
 const compiler = webpack(config);
 
+app.use("./src", express.static("./src"));
 
-app.use('./src', express.static('./src'));
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+  }),
+);
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-}));
-
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8080);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,8 +35,6 @@ app.get("/", async (req, res) => {
   res.send(await ServerRenderer(renderTodo));
 });
 
-
 app.listen(app.get("port"), () => {
-  console.log(`server is running http://localhost:${process.env.PORT || 3000}`);
+  console.log(`server is running http://localhost:${process.env.PORT || 8080}`);
 });
-

@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "install": "cd client && npm i && cd ../server && npm i",
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "client": "npm run dev --prefix client",
-    "server": "npm run dev --prefix server"
+    "server": "npm run dev --prefix server",
+    "unit": "node unit"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "dependencies": {
     "axios": "^1.2.1",
     "buffer": "^6.0.3",
-    "concurrently": "^7.6.0"
+    "concurrently": "^7.6.0",
+    "fxjs": "^0.21.3"
   }
 }
